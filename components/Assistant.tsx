@@ -1,8 +1,11 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { Loader2, Send, Sparkles, X } from "lucide-react";
+import { Loader2, RotateCcw, Send, Sparkles, X } from "lucide-react";
 
-type Msg = { role: "user" | "assistant"; text: string };
+// retryFor = คำถามที่ส่งไม่สำเร็จ — บับเบิลนี้เป็น error พร้อมปุ่มลองใหม่ และไม่ถูกนับเป็น history
+type Msg = { role: "user" | "assistant"; text: string; retryFor?: string };
+
+const okMsgs = (list: Msg[]) => list.filter((m) => !m.retryFor);
 
 const SUGGEST = [
   "โรงแรมไหน occupancy ต่ำกว่าเป้าบ้าง?",
@@ -32,12 +35,7 @@ export default function Assistant() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  async function send(q: string) {
-    const question = q.trim();
-    if (!question || busy) return;
-    const history = msgs.slice(-8);
-    setMsgs((m) => [...m, { role: "user", text: question }]);
-    setInput("");
+  async function ask(question: string, history: Msg[]) {
     setBusy(true);
     try {
       const res = await fetch("/api/assistant", {
@@ -45,22 +43,39 @@ export default function Assistant() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, history }),
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data?.answer) throw new Error(data?.error);
+      setMsgs((m) => [...m, { role: "assistant", text: data.answer }]);
+    } catch (e: any) {
       setMsgs((m) => [
         ...m,
         {
           role: "assistant",
-          text: data.answer || data.error || "ตอบไม่ได้ตอนนี้ ลองใหม่อีกครั้งครับ",
+          text: String(e?.message || "") || "เชื่อมต่อไม่ได้ ลองใหม่อีกครั้งครับ",
+          retryFor: question,
         },
-      ]);
-    } catch {
-      setMsgs((m) => [
-        ...m,
-        { role: "assistant", text: "เชื่อมต่อไม่ได้ ลองใหม่อีกครั้งครับ" },
       ]);
     } finally {
       setBusy(false);
     }
+  }
+
+  function send(q: string) {
+    const question = q.trim();
+    if (!question || busy) return;
+    const history = okMsgs(msgs).slice(-8);
+    setMsgs((m) => [...m, { role: "user", text: question }]);
+    setInput("");
+    void ask(question, history);
+  }
+
+  function retry(i: number) {
+    if (busy) return;
+    const question = msgs[i].retryFor!;
+    // history = บทสนทนาก่อนคำถามที่พัง (บับเบิลคำถามอยู่ที่ i-1)
+    const history = okMsgs(msgs.slice(0, Math.max(0, i - 1))).slice(-8);
+    setMsgs((m) => m.filter((_, idx) => idx !== i));
+    void ask(question, history);
   }
 
   if (!open)
@@ -123,18 +138,34 @@ export default function Assistant() {
             </div>
           </div>
         )}
-        {msgs.map((m, i) => (
-          <div
-            key={i}
-            className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-3 py-2 text-sm shadow-card ${
-              m.role === "user"
-                ? "ml-auto rounded-br-md bg-ink text-white"
-                : "rounded-bl-md border border-ink/10 bg-white"
-            }`}
-          >
-            {m.text}
-          </div>
-        ))}
+        {msgs.map((m, i) =>
+          m.retryFor ? (
+            <div
+              key={i}
+              className="w-fit max-w-[85%] rounded-2xl rounded-bl-md border border-down/30 bg-down/5 px-3 py-2 text-sm text-down shadow-card"
+            >
+              <span className="whitespace-pre-wrap">{m.text}</span>
+              <button
+                onClick={() => retry(i)}
+                disabled={busy}
+                className="mt-2 flex items-center gap-1.5 rounded-lg bg-down px-2.5 py-1.5 text-xs font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-40"
+              >
+                <RotateCcw size={12} aria-hidden /> ลองอีกครั้ง
+              </button>
+            </div>
+          ) : (
+            <div
+              key={i}
+              className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-3 py-2 text-sm shadow-card ${
+                m.role === "user"
+                  ? "ml-auto rounded-br-md bg-ink text-white"
+                  : "rounded-bl-md border border-ink/10 bg-white"
+              }`}
+            >
+              {m.text}
+            </div>
+          ),
+        )}
         {busy && (
           <div className="flex w-fit items-center gap-2 rounded-2xl rounded-bl-md border border-ink/10 bg-white px-3 py-2 text-xs text-mut shadow-card">
             <Loader2 size={13} className="animate-spin motion-reduce:animate-none" aria-hidden />
