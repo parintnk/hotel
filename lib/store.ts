@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import * as seed from "./mock-data";
 
@@ -25,7 +26,11 @@ export type DB = {
   message_logs: any[];
 };
 
-const FILE = path.join(process.cwd(), "data", "local-db.json");
+const REPO_FILE = path.join(process.cwd(), "data", "local-db.json");
+// ponytail: Vercel/serverless FS อ่านอย่างเดียว — เขียนไม่ได้ก็ตกไป /tmp
+// (อยู่แค่ช่วง warm instance, cold start กลับเป็น seed จาก repo — พอสำหรับเดโม, ของจริงย้ายไป DB ที่ lib/db.ts จุดเดียว)
+const TMP_FILE = path.join(os.tmpdir(), "hotel-ops-local-db.json");
+let FILE = fs.existsSync(TMP_FILE) ? TMP_FILE : REPO_FILE;
 let cache: DB | null = null;
 
 function fromSeed(): DB {
@@ -57,8 +62,14 @@ export function getDb(): DB {
 }
 
 export function save() {
-  fs.mkdirSync(path.dirname(FILE), { recursive: true });
-  fs.writeFileSync(FILE, JSON.stringify(cache, null, 1));
+  try {
+    fs.mkdirSync(path.dirname(FILE), { recursive: true });
+    fs.writeFileSync(FILE, JSON.stringify(cache, null, 1));
+  } catch (e) {
+    if (FILE === TMP_FILE) throw e;
+    FILE = TMP_FILE;
+    fs.writeFileSync(FILE, JSON.stringify(cache, null, 1));
+  }
 }
 
 export function resetDb(): DB {
