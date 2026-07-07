@@ -74,7 +74,7 @@ export default async function Dashboard({
           </h1>
           <p className="mt-1 text-sm text-mut">
             {hotel?.location} · {hotel?.segment} · ตัวเลขขยับตามการจองจริง —
-            ลองจองผ่านแชทแล้วกลับมาดู
+            ลองรัน pipeline ที่ /ops หรือยกเลิกการจองด้านล่างแล้วกลับมาดู
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
