@@ -151,5 +151,17 @@ export async function runETL() {
           });
   stats.overbookings = conflicts.length;
 
-  return { stats, conflicts };
+  // แถวที่นำเข้ารอบนี้ — ให้หน้า ops โชว์ตาราง ตรวจย้อนได้ว่าดึงอะไรเข้ามาบ้าง
+  const imported = toInsert.map((t) => ({
+    ref: t.source_ref,
+    guest: t.guest_name,
+    hotel: t._c.hotel_name,
+    room: t._c.room_number,
+    channel: t.channel,
+    checkin: t.checkin_date,
+    checkout: t.checkout_date,
+    amount: t.amount,
+  }));
+
+  return { stats, conflicts, rows: imported };
 }
