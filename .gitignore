@@ -40,7 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# local data store (ข้อมูลผู้ใช้ ไม่ commit)
-/data/local-db.json
+# โน้ตเตรียมสัมภาษณ์ส่วนตัว ไม่ขึ้น repo
 /docs/interview-notes.md
 
