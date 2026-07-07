@@ -1,0 +1,107 @@
+Reservation ID,Hotel,Guest Name,Room,Check-in,Check-out,Total Price
+1000,Riverside Boutique,Anna,06,2026-07-05,2026-07-06,1800
+1002,Riverside Boutique,David,03,2026-07-08,2026-07-11,1200
+1003,Riverside Boutique,Kenji,07,2026-07-27,2026-07-28,2400
+1004,Riverside Boutique,Nina,02,2026-07-12,2026-07-14,1200
+1005,Riverside Boutique,Ploy,04,2026-07-05,2026-07-06,1800
+1009,Riverside Boutique,Somchai,06,2026-07-27,2026-07-30,1800
+1010,Riverside Boutique,Kenji,08,2026-07-26,2026-07-29,2400
+1011,Riverside Boutique,Maria,04,2026-07-14,2026-07-17,1800
+1013,Riverside Boutique,Anna,08,2026-06-30,2026-07-01,2400
+1015,Riverside Boutique,Anna,03,2026-07-28,2026-07-30,1200
+1018,Riverside Boutique,Kenji,02,2026-07-03,2026-07-05,1200
+1019,Riverside Boutique,Kenji,05,2026-07-08,2026-07-09,1800
+1023,Riverside Boutique,David,05,2026-07-04,2026-07-06,1800
+1024,Riverside Boutique,Nina,04,2026-07-24,2026-07-25,1800
+1027,Riverside Boutique,David,03,2026-07-16,2026-07-17,1200
+1028,Riverside Boutique,Kenji,03,2026-07-05,2026-07-08,1200
+1031,Riverside Boutique,Nina,07,2026-07-04,2026-07-07,2400
+1032,Riverside Boutique,Nina,08,2026-07-10,2026-07-11,2400
+1037,Riverside Boutique,David,08,2026-07-26,2026-07-29,2400
+1038,Riverside Boutique,Nina,04,2026-06-29,2026-07-02,1800
+1040,City Central Hotel,Kenji,01,2026-07-08,2026-07-11,1400
+1042,City Central Hotel,Anna,01,2026-06-30,2026-07-02,1400
+1043,City Central Hotel,Somchai,02,2026-07-27,2026-07-30,1400
+1045,City Central Hotel,Kenji,04,2026-06-29,2026-06-30,1400
+1047,City Central Hotel,Ploy,03,2026-07-06,2026-07-09,1400
+1048,City Central Hotel,David,05,2026-07-16,2026-07-18,2100
+1049,City Central Hotel,Kenji,08,2026-07-22,2026-07-24,2100
+1050,City Central Hotel,Kenji,02,2026-07-06,2026-07-08,1400
+1052,City Central Hotel,Lee,03,2026-07-28,2026-07-29,1400
+1053,City Central Hotel,Ploy,05,2026-07-12,2026-07-13,2100
+1055,City Central Hotel,Maria,02,2026-07-25,2026-07-28,1400
+1056,City Central Hotel,David,06,2026-07-10,2026-07-12,2100
+1057,City Central Hotel,Maria,05,2026-07-21,2026-07-23,2100
+1069,City Central Hotel,Anna,03,2026-07-26,2026-07-27,1400
+1071,City Central Hotel,Maria,01,2026-07-14,2026-07-16,1400
+1074,City Central Hotel,Anna,04,2026-07-25,2026-07-28,1400
+1076,City Central Hotel,Lee,08,2026-07-27,2026-07-28,2100
+1077,City Central Hotel,Lee,08,2026-07-28,2026-07-31,2100
+1082,Baan Suan Resort,Nina,02,2026-07-13,2026-07-14,3200
+1085,Baan Suan Resort,Maria,14,2026-07-16,2026-07-19,2200
+1086,Baan Suan Resort,Ploy,03,2026-07-05,2026-07-07,3200
+1088,Baan Suan Resort,David,06,2026-06-29,2026-07-02,3200
+1091,Baan Suan Resort,Nina,04,2026-07-11,2026-07-14,3200
+1092,Baan Suan Resort,Anna,05,2026-07-03,2026-07-05,3200
+1093,Baan Suan Resort,Anna,08,2026-07-04,2026-07-06,2200
+1101,Baan Suan Resort,Nina,06,2026-07-20,2026-07-21,3200
+1103,Baan Suan Resort,Maria,13,2026-07-06,2026-07-08,2200
+1104,Baan Suan Resort,Ploy,02,2026-06-29,2026-07-01,3200
+1107,Baan Suan Resort,Somchai,01,2026-07-22,2026-07-23,3200
+1110,Baan Suan Resort,Somchai,03,2026-07-03,2026-07-04,3200
+1112,Baan Suan Resort,Ploy,02,2026-07-13,2026-07-14,3200
+1115,Baan Suan Resort,Kenji,07,2026-07-03,2026-07-04,2200
+1117,Baan Suan Resort,Nina,08,2026-07-04,2026-07-05,2200
+1121,The Sand Beachfront,Kenji,14,2026-07-16,2026-07-19,2800
+1122,The Sand Beachfront,Ploy,08,2026-07-17,2026-07-19,1900
+1123,The Sand Beachfront,Kenji,11,2026-07-19,2026-07-21,2800
+1125,The Sand Beachfront,Kenji,08,2026-07-07,2026-07-09,1900
+1128,The Sand Beachfront,Nina,13,2026-07-20,2026-07-22,2800
+1132,The Sand Beachfront,Maria,10,2026-07-28,2026-07-31,1900
+1138,The Sand Beachfront,Lee,18,2026-07-02,2026-07-03,2800
+1139,The Sand Beachfront,Lee,12,2026-07-19,2026-07-22,2800
+1140,The Sand Beachfront,Lee,12,2026-07-11,2026-07-14,2800
+1141,The Sand Beachfront,Nina,04,2026-07-15,2026-07-17,1900
+1145,The Sand Beachfront,Nina,08,2026-07-23,2026-07-26,1900
+1147,The Sand Beachfront,Somchai,12,2026-07-05,2026-07-06,2800
+1150,The Sand Beachfront,Lee,16,2026-07-19,2026-07-20,2800
+1151,The Sand Beachfront,Anna,01,2026-07-05,2026-07-07,1900
+1152,The Sand Beachfront,Nina,11,2026-07-16,2026-07-18,2800
+1154,The Sand Beachfront,Anna,08,2026-07-14,2026-07-16,1900
+1156,The Sand Beachfront,Kenji,15,2026-07-08,2026-07-09,2800
+1158,The Sand Beachfront,Anna,13,2026-07-05,2026-07-06,2800
+1161,Nimman Loft,Nina,08,2026-07-17,2026-07-20,1600
+1162,Nimman Loft,Somchai,05,2026-07-23,2026-07-24,1600
+1163,Nimman Loft,David,04,2026-06-30,2026-07-02,1600
+1165,Nimman Loft,Anna,11,2026-07-01,2026-07-02,2500
+1169,Nimman Loft,Anna,02,2026-07-10,2026-07-12,1600
+1170,Nimman Loft,Anna,09,2026-07-14,2026-07-16,2500
+1171,Nimman Loft,Somchai,06,2026-07-08,2026-07-10,1600
+1173,Nimman Loft,Nina,02,2026-07-15,2026-07-18,1600
+1175,Nimman Loft,Kenji,04,2026-07-07,2026-07-08,1600
+1178,Nimman Loft,Maria,05,2026-07-28,2026-07-30,1600
+1182,Nimman Loft,Nina,05,2026-07-06,2026-07-08,1600
+1185,Nimman Loft,Somchai,08,2026-07-11,2026-07-13,1600
+1188,Nimman Loft,Kenji,02,2026-07-12,2026-07-14,1600
+1192,Nimman Loft,Maria,11,2026-07-17,2026-07-18,2500
+1194,Nimman Loft,Maria,10,2026-07-27,2026-07-28,2500
+1195,Nimman Loft,Kenji,10,2026-07-02,2026-07-03,2500
+1196,Nimman Loft,Somchai,08,2026-07-05,2026-07-08,1600
+1197,Nimman Loft,Nina,01,2026-07-03,2026-07-05,1600
+1202,Riverfront Heritage,Kenji,04,2026-07-28,2026-07-31,2000
+1203,Riverfront Heritage,Kenji,05,2026-07-20,2026-07-22,2000
+1210,Riverfront Heritage,Nina,03,2026-07-12,2026-07-13,2000
+1211,Riverfront Heritage,Lee,06,2026-07-22,2026-07-25,2000
+1215,Riverfront Heritage,Maria,09,2026-07-25,2026-07-28,3600
+1217,Riverfront Heritage,Somchai,08,2026-07-05,2026-07-08,2000
+1218,Riverfront Heritage,Ploy,05,2026-07-14,2026-07-16,2000
+1219,Riverfront Heritage,Somchai,04,2026-07-11,2026-07-14,2000
+1220,Riverfront Heritage,Anna,02,2026-07-19,2026-07-20,2000
+1224,Riverfront Heritage,David,01,2026-06-30,2026-07-02,2000
+1229,Riverfront Heritage,Nina,03,2026-07-05,2026-07-07,2000
+1230,Riverfront Heritage,Anna,08,2026-07-21,2026-07-24,2000
+1236,Riverfront Heritage,Kenji,05,2026-07-15,2026-07-16,2000
+1237,Riverfront Heritage,Ploy,10,2026-07-21,2026-07-22,3600
+1239,Riverfront Heritage,Anna,02,2026-07-24,2026-07-27,2000
+9001,Riverside Boutique,Alice,05,2026-07-10,2026-07-12,1200
+9100,Riverside Boutique,Carol,08,2026-07-14,2026-07-16,1100

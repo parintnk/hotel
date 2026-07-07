@@ -1,0 +1,280 @@
+"use client";
+import { useState } from "react";
+import {
+  AlertTriangle,
+  ArrowDown,
+  CheckCircle2,
+  CopyX,
+  FileWarning,
+  FileText,
+  Loader2,
+  Play,
+  Sparkles,
+  Upload,
+} from "lucide-react";
+
+type Side = {
+  ref: string;
+  guest: string;
+  channel: string;
+  checkin: string;
+  checkout: string;
+};
+type EtlResult = {
+  stats: {
+    read: number;
+    invalid: number;
+    deduped: number;
+    inserted: number;
+    overbookings: number;
+  };
+  conflicts: { room: string; hotel: string; a: Side; b: Side }[];
+};
+
+const SOURCES = [
+  {
+    file: "booking_com.csv",
+    channel: "Booking.com",
+    quirk: "หัวคอลัมน์ Title Case · วันที่ ISO (YYYY-MM-DD)",
+  },
+  {
+    file: "agoda.csv",
+    channel: "Agoda",
+    quirk: "snake_case · วันที่ DD/MM/YYYY ต้องแปลงก่อน",
+  },
+  {
+    file: "walkin.csv",
+    channel: "Walk-in",
+    quirk: "จดมือ — ชื่อ/ราคาหายเป็นบางแถว ต้องคัดทิ้ง",
+  },
+];
+
+export default function OpsPage() {
+  const [running, setRunning] = useState(false);
+  const [result, setResult] = useState<EtlResult | null>(null);
+  const [error, setError] = useState(false);
+  const [advice, setAdvice] = useState<Record<number, string>>({});
+  const [advising, setAdvising] = useState<number | null>(null);
+
+  async function resolve(i: number, conflict: EtlResult["conflicts"][number]) {
+    setAdvising(i);
+    try {
+      const res = await fetch("/api/ops/resolve", {
+        method: "POST",
+        body: JSON.stringify({ conflict }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      const { suggestion } = await res.json();
+      setAdvice((a) => ({ ...a, [i]: suggestion }));
+    } catch {
+      setAdvice((a) => ({ ...a, [i]: "แนะนำไม่สำเร็จ — ลองใหม่อีกครั้ง" }));
+    } finally {
+      setAdvising(null);
+    }
+  }
+
+  async function run() {
+    setRunning(true);
+    setError(false);
+    try {
+      const res = await fetch("/api/etl", { method: "POST" });
+      if (!res.ok) throw new Error(String(res.status));
+      setResult(await res.json());
+    } catch {
+      setError(true);
+    } finally {
+      setRunning(false);
+    }
+  }
+
+  const s = result?.stats;
+  const STEPS = [
+    {
+      icon: FileText,
+      title: "Extract",
+      desc: "อ่าน CSV 3 ช่องทาง",
+      value: s ? `${s.read} แถว` : "—",
+    },
+    {
+      icon: FileWarning,
+      title: "Validate",
+      desc: "คัดแถวข้อมูลขาดทิ้ง",
+      value: s ? `${s.invalid} แถวเสีย` : "—",
+    },
+    {
+      icon: CopyX,
+      title: "Dedupe",
+      desc: "จองซ้ำข้ามช่องทาง",
+      value: s ? `${s.deduped} ซ้ำ` : "—",
+    },
+    {
+      icon: Upload,
+      title: "Load",
+      desc: "upsert ด้วย source_ref",
+      value: s ? `${s.inserted} รายการ` : "—",
+    },
+    {
+      icon: AlertTriangle,
+      title: "Detect",
+      desc: "จับจองซ้อน (overlap)",
+      value: s ? `${s.overbookings} conflict` : "—",
+      alert: (s?.overbookings ?? 0) > 0,
+    },
+  ];
+
+  return (
+    <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-mut">Property · Data Pipeline</p><h1 className="mt-0.5 text-xl font-bold tracking-tight">Data Pipeline — ETL</h1>
+          <p className="mt-1 max-w-xl text-sm text-mut">
+            รวมไฟล์จองจาก 3 ช่องทางคนละฟอร์แมต → normalize → กันซ้ำ →
+            เขียนลงระบบ แล้วตรวจจับ <strong>overbooking</strong> ก่อนลูกค้ามาเจอหน้างาน
+          </p>
+        </div>
+        <button
+          onClick={run}
+          disabled={running}
+          className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-brand-ink transition-transform hover:scale-[1.03] disabled:opacity-60"
+        >
+          {running ? (
+            <Loader2 size={16} className="animate-spin" aria-hidden />
+          ) : (
+            <Play size={16} aria-hidden />
+          )}
+          {running ? "กำลังรัน pipeline…" : result ? "รันซ้ำ" : "รัน pipeline"}
+        </button>
+      </div>
+
+      {/* Sources */}
+      <div className="mt-6 grid gap-3 md:grid-cols-3">
+        {SOURCES.map((src) => (
+          <div key={src.file} className="rounded-xl border border-ink/10 bg-white shadow-card p-4">
+            <div className="flex items-center gap-2">
+              <FileText size={15} className="text-mut" aria-hidden />
+              <span className="font-mono text-xs font-semibold">{src.file}</span>
+              <span className="ml-auto rounded-full bg-paper px-2 py-0.5 text-[10px] font-medium text-ink/60">
+                {src.channel}
+              </span>
+            </div>
+            <p className="mt-2 text-xs leading-relaxed text-mut">{src.quirk}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Pipeline steps */}
+      <div className="mt-8 grid gap-3 md:grid-cols-5">
+        {STEPS.map((st, i) => (
+          <div key={st.title} className="relative">
+            <div
+              className={`h-full rounded-xl border bg-white p-4 shadow-card ${
+                st.alert ? "border-down/40" : "border-ink/10"
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <st.icon
+                  size={17}
+                  aria-hidden
+                  className={st.alert ? "text-down" : "text-brand-ink"}
+                />
+                <span className="text-[10px] font-semibold tracking-widest text-mut">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+              </div>
+              <div className="mt-2 text-sm font-semibold">{st.title}</div>
+              <div className="text-xs text-mut">{st.desc}</div>
+              <div
+                className={`mt-2 text-lg font-bold tabular-nums ${
+                  st.alert ? "text-down" : ""
+                }`}
+              >
+                {st.value}
+              </div>
+            </div>
+            {i < STEPS.length - 1 && (
+              <ArrowDown
+                size={14}
+                aria-hidden
+                className="absolute -bottom-4 left-1/2 -translate-x-1/2 text-mut md:hidden"
+              />
+            )}
+          </div>
+        ))}
+      </div>
+
+      {error && (
+        <div className="mt-6 rounded-xl border border-down/40 bg-down/5 p-4 text-sm text-down">
+          รัน pipeline ไม่สำเร็จ — ลองใหม่อีกครั้ง หรือเช็คว่า dev server ยังรันอยู่
+        </div>
+      )}
+
+      {/* Results */}
+      {result &&
+        (result.conflicts.length > 0 ? (
+          <section className="mt-8">
+            <h2 className="flex items-center gap-2 font-bold">
+              <AlertTriangle size={17} className="text-down" aria-hidden />
+              พบจองซ้อน {result.conflicts.length} รายการ — ต้องจัดการก่อนวันเข้าพัก
+            </h2>
+            <div className="mt-3 grid gap-3 md:grid-cols-2">
+              {result.conflicts.map((c, i) => (
+                <div
+                  key={i}
+                  className="rounded-2xl border-l-4 border border-ink/10 border-l-down bg-white p-4 shadow-card"
+                >
+                  <div className="flex items-center gap-2 text-sm font-semibold">
+                    ห้อง {c.room} · {c.hotel}
+                  </div>
+                  <div className="mt-2 grid grid-cols-2 gap-2 text-xs">
+                    {[c.a, c.b].map((sd) => (
+                      <div key={sd.ref} className="rounded-lg bg-paper p-2.5">
+                        <div className="font-mono text-[10px] text-mut">{sd.ref}</div>
+                        <div className="mt-0.5 font-medium">{sd.guest}</div>
+                        <div className="text-mut">{sd.channel}</div>
+                        <div className="mt-1 tabular-nums text-ink/70">
+                          {sd.checkin} → {sd.checkout}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {advice[i] ? (
+                    <div className="mt-3 rounded-xl border border-brand/40 bg-brand/5 p-3">
+                      <div className="text-[11px] font-semibold text-brand-ink">
+                        AI แนะนำวิธีจัดการ (เช็คห้องว่างจริงแล้ว)
+                      </div>
+                      <p className="mt-1.5 whitespace-pre-line text-xs leading-relaxed text-ink/80">
+                        {advice[i]}
+                      </p>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => resolve(i, c)}
+                      disabled={advising !== null}
+                      className="mt-3 inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-brand bg-brand/10 px-3 py-1.5 text-xs font-semibold text-brand-ink transition-colors hover:bg-brand/20 disabled:opacity-60"
+                    >
+                      {advising === i ? (
+                        <Loader2 size={12} className="animate-spin" aria-hidden />
+                      ) : (
+                        <Sparkles size={12} aria-hidden />
+                      )}
+                      {advising === i ? "AI กำลังวิเคราะห์…" : "ให้ AI แนะนำวิธีแก้"}
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : (
+          <div className="mt-8 flex items-center gap-2 rounded-xl border border-up/30 bg-up/5 p-4 text-sm font-medium text-up">
+            <CheckCircle2 size={17} aria-hidden /> ไม่พบจองซ้อน — ข้อมูลทุกช่องทางสอดคล้องกัน
+          </div>
+        ))}
+
+      {!result && !error && (
+        <div className="mt-8 rounded-xl border border-dashed border-ink/20 p-8 text-center text-sm text-mut">
+          ยังไม่ได้รันรอบนี้ — กด <strong>รัน pipeline</strong> เพื่อดึงข้อมูลจองล่าสุดจากทุกช่องทาง
+        </div>
+      )}
+    </main>
+  );
+}

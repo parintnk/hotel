@@ -1,0 +1,50 @@
+ref,hotel,name,room,in,out,amount
+1006,Riverside Boutique,Lee,08,2026-06-30,2026-07-01,2400
+1014,Riverside Boutique,Somchai,05,2026-07-05,2026-07-06,1800
+1020,Riverside Boutique,Somchai,01,2026-07-23,2026-07-25,1200
+1021,Riverside Boutique,Nina,04,2026-07-16,2026-07-17,1800
+1022,Riverside Boutique,Kenji,08,2026-07-01,2026-07-04,2400
+1025,Riverside Boutique,Lee,05,2026-07-03,2026-07-05,1800
+1039,Riverside Boutique,Lee,02,2026-07-11,2026-07-13,1200
+1041,City Central Hotel,,06,2026-07-27,2026-07-29,2100
+1044,City Central Hotel,Maria,08,2026-07-08,2026-07-10,2100
+1046,City Central Hotel,Nina,05,2026-07-28,2026-07-30,2100
+1060,City Central Hotel,David,08,2026-07-13,2026-07-16,
+1061,City Central Hotel,Ploy,02,2026-06-30,2026-07-02,1400
+1065,City Central Hotel,Nina,02,2026-07-23,2026-07-26,1400
+1068,City Central Hotel,,05,2026-07-17,2026-07-18,2100
+1073,City Central Hotel,Maria,03,2026-07-06,2026-07-08,1400
+1080,Baan Suan Resort,Maria,08,2026-07-01,2026-07-04,2200
+1081,Baan Suan Resort,David,03,2026-07-10,2026-07-12,3200
+1090,Baan Suan Resort,Anna,03,2026-07-03,2026-07-05,3200
+1098,Baan Suan Resort,Lee,05,2026-07-01,2026-07-03,3200
+1099,Baan Suan Resort,Nina,09,2026-07-20,2026-07-23,2200
+1102,Baan Suan Resort,Nina,11,2026-07-25,2026-07-28,2200
+1105,Baan Suan Resort,Ploy,06,2026-07-04,2026-07-07,3200
+1106,Baan Suan Resort,Ploy,10,2026-07-22,2026-07-25,2200
+1108,Baan Suan Resort,Ploy,03,2026-07-16,2026-07-17,3200
+1111,Baan Suan Resort,Lee,01,2026-07-25,2026-07-27,3200
+1116,Baan Suan Resort,Kenji,13,2026-07-11,2026-07-13,2200
+1126,The Sand Beachfront,,10,2026-07-02,2026-07-05,1900
+1129,The Sand Beachfront,Anna,11,2026-07-06,2026-07-09,2800
+1130,The Sand Beachfront,Anna,17,2026-07-10,2026-07-12,2800
+1131,The Sand Beachfront,Somchai,02,2026-07-18,2026-07-21,1900
+1134,The Sand Beachfront,Ploy,06,2026-07-20,2026-07-23,
+1137,The Sand Beachfront,Anna,16,2026-07-18,2026-07-19,2800
+1155,The Sand Beachfront,Anna,07,2026-07-06,2026-07-08,1900
+1160,Nimman Loft,Nina,03,2026-07-25,2026-07-26,1600
+1166,Nimman Loft,Nina,11,2026-07-27,2026-07-30,2500
+1167,Nimman Loft,,05,2026-07-21,2026-07-23,1600
+1172,Nimman Loft,Ploy,02,2026-07-20,2026-07-23,1600
+1174,Nimman Loft,Lee,04,2026-07-04,2026-07-07,1600
+1177,Nimman Loft,Anna,10,2026-07-23,2026-07-24,2500
+1179,Nimman Loft,Lee,06,2026-07-15,2026-07-17,1600
+1187,Nimman Loft,Somchai,02,2026-07-24,2026-07-26,1600
+1198,Nimman Loft,Lee,07,2026-07-04,2026-07-07,1600
+1200,Riverfront Heritage,Anna,06,2026-06-30,2026-07-01,2000
+1208,Riverfront Heritage,Ploy,01,2026-07-16,2026-07-18,2000
+1214,Riverfront Heritage,Maria,04,2026-07-01,2026-07-04,2000
+1221,Riverfront Heritage,Nina,03,2026-07-27,2026-07-29,2000
+1222,Riverfront Heritage,Ploy,02,2026-07-23,2026-07-24,
+1226,Riverfront Heritage,,04,2026-07-15,2026-07-18,2000
+1232,Riverfront Heritage,David,09,2026-07-04,2026-07-05,3600

@@ -1,0 +1,90 @@
+booking_id,hotel,customer,room_no,arrival,departure,price
+1001,Riverside Boutique,Lee,02,03/07/2026,04/07/2026,1200
+1007,Riverside Boutique,Lee,08,10/07/2026,11/07/2026,2400
+1008,Riverside Boutique,David,08,01/07/2026,03/07/2026,2400
+1012,Riverside Boutique,Somchai,01,25/07/2026,26/07/2026,1200
+1016,Riverside Boutique,Anna,04,14/07/2026,16/07/2026,1800
+1017,Riverside Boutique,Somchai,06,09/07/2026,10/07/2026,1800
+1026,Riverside Boutique,Maria,07,02/07/2026,04/07/2026,2400
+1029,Riverside Boutique,Kenji,06,08/07/2026,10/07/2026,1800
+1030,Riverside Boutique,Anna,06,08/07/2026,09/07/2026,1800
+1033,Riverside Boutique,Nina,01,08/07/2026,11/07/2026,1200
+1034,Riverside Boutique,Nina,04,01/07/2026,04/07/2026,1800
+1035,Riverside Boutique,Ploy,01,11/07/2026,13/07/2026,1200
+1036,Riverside Boutique,Somchai,03,04/07/2026,05/07/2026,1200
+1051,City Central Hotel,Somchai,07,22/07/2026,23/07/2026,2100
+1054,City Central Hotel,Kenji,06,12/07/2026,15/07/2026,2100
+1058,City Central Hotel,Maria,05,07/07/2026,09/07/2026,2100
+1059,City Central Hotel,Ploy,03,21/07/2026,22/07/2026,1400
+1062,City Central Hotel,Maria,07,26/07/2026,29/07/2026,2100
+1063,City Central Hotel,Somchai,04,21/07/2026,24/07/2026,1400
+1064,City Central Hotel,Maria,03,27/07/2026,28/07/2026,1400
+1066,City Central Hotel,Somchai,01,18/07/2026,19/07/2026,1400
+1067,City Central Hotel,David,08,09/07/2026,11/07/2026,2100
+1070,City Central Hotel,Anna,01,25/07/2026,27/07/2026,1400
+1072,City Central Hotel,Anna,03,17/07/2026,19/07/2026,1400
+1075,City Central Hotel,Maria,06,20/07/2026,22/07/2026,2100
+1078,City Central Hotel,Maria,08,27/07/2026,28/07/2026,2100
+1079,City Central Hotel,Somchai,02,23/07/2026,24/07/2026,1400
+1083,Baan Suan Resort,Nina,08,20/07/2026,23/07/2026,2200
+1084,Baan Suan Resort,Nina,04,11/07/2026,12/07/2026,3200
+1087,Baan Suan Resort,Ploy,14,24/07/2026,25/07/2026,2200
+1089,Baan Suan Resort,Kenji,03,20/07/2026,21/07/2026,3200
+1094,Baan Suan Resort,Lee,02,21/07/2026,22/07/2026,3200
+1095,Baan Suan Resort,Maria,09,21/07/2026,22/07/2026,2200
+1096,Baan Suan Resort,Ploy,05,26/07/2026,29/07/2026,3200
+1097,Baan Suan Resort,Kenji,02,12/07/2026,15/07/2026,3200
+1100,Baan Suan Resort,Somchai,09,30/06/2026,01/07/2026,2200
+1109,Baan Suan Resort,Somchai,13,24/07/2026,25/07/2026,2200
+1113,Baan Suan Resort,Maria,10,04/07/2026,06/07/2026,2200
+1114,Baan Suan Resort,Nina,14,24/07/2026,26/07/2026,2200
+1118,Baan Suan Resort,Ploy,05,21/07/2026,23/07/2026,3200
+1119,Baan Suan Resort,Lee,14,16/07/2026,17/07/2026,2200
+1120,The Sand Beachfront,Maria,16,16/07/2026,17/07/2026,2800
+1124,The Sand Beachfront,Lee,07,05/07/2026,08/07/2026,1900
+1127,The Sand Beachfront,Nina,08,14/07/2026,16/07/2026,1900
+1133,The Sand Beachfront,David,01,07/07/2026,08/07/2026,1900
+1135,The Sand Beachfront,Somchai,17,20/07/2026,21/07/2026,2800
+1136,The Sand Beachfront,Maria,13,15/07/2026,16/07/2026,2800
+1142,The Sand Beachfront,Somchai,10,23/07/2026,25/07/2026,1900
+1143,The Sand Beachfront,Anna,01,14/07/2026,17/07/2026,1900
+1144,The Sand Beachfront,Kenji,08,23/07/2026,25/07/2026,1900
+1146,The Sand Beachfront,Maria,15,11/07/2026,14/07/2026,2800
+1148,The Sand Beachfront,Lee,05,29/06/2026,30/06/2026,1900
+1149,The Sand Beachfront,Anna,18,20/07/2026,23/07/2026,2800
+1153,The Sand Beachfront,Ploy,07,17/07/2026,18/07/2026,1900
+1157,The Sand Beachfront,Lee,06,06/07/2026,08/07/2026,1900
+1159,The Sand Beachfront,Lee,04,03/07/2026,06/07/2026,1900
+1164,Nimman Loft,Kenji,05,12/07/2026,14/07/2026,1600
+1168,Nimman Loft,Kenji,07,13/07/2026,15/07/2026,1600
+1176,Nimman Loft,Kenji,11,15/07/2026,17/07/2026,2500
+1180,Nimman Loft,Nina,07,12/07/2026,13/07/2026,1600
+1181,Nimman Loft,Ploy,02,10/07/2026,12/07/2026,1600
+1183,Nimman Loft,Somchai,01,03/07/2026,04/07/2026,1600
+1184,Nimman Loft,Anna,06,01/07/2026,04/07/2026,1600
+1186,Nimman Loft,Somchai,02,27/07/2026,29/07/2026,1600
+1189,Nimman Loft,Lee,12,29/06/2026,30/06/2026,2500
+1190,Nimman Loft,David,05,28/07/2026,31/07/2026,1600
+1191,Nimman Loft,Anna,04,26/07/2026,27/07/2026,1600
+1193,Nimman Loft,Lee,12,22/07/2026,24/07/2026,2500
+1199,Nimman Loft,Somchai,06,22/07/2026,24/07/2026,1600
+1201,Riverfront Heritage,Kenji,02,26/07/2026,28/07/2026,2000
+1204,Riverfront Heritage,Somchai,04,01/07/2026,02/07/2026,2000
+1205,Riverfront Heritage,Nina,02,10/07/2026,13/07/2026,2000
+1206,Riverfront Heritage,Somchai,03,19/07/2026,22/07/2026,2000
+1207,Riverfront Heritage,Nina,03,15/07/2026,18/07/2026,2000
+1209,Riverfront Heritage,Anna,01,16/07/2026,18/07/2026,2000
+1212,Riverfront Heritage,Ploy,01,27/07/2026,30/07/2026,2000
+1213,Riverfront Heritage,Nina,06,09/07/2026,11/07/2026,2000
+1216,Riverfront Heritage,Kenji,03,04/07/2026,07/07/2026,2000
+1223,Riverfront Heritage,Anna,01,25/07/2026,26/07/2026,2000
+1225,Riverfront Heritage,Somchai,02,15/07/2026,18/07/2026,2000
+1227,Riverfront Heritage,Somchai,09,06/07/2026,09/07/2026,3600
+1228,Riverfront Heritage,Lee,07,17/07/2026,19/07/2026,2000
+1231,Riverfront Heritage,Nina,02,09/07/2026,12/07/2026,2000
+1233,Riverfront Heritage,Ploy,03,26/07/2026,28/07/2026,2000
+1234,Riverfront Heritage,Somchai,10,12/07/2026,13/07/2026,3600
+1235,Riverfront Heritage,Kenji,10,05/07/2026,08/07/2026,3600
+1238,Riverfront Heritage,Ploy,03,28/07/2026,31/07/2026,2000
+9002,Riverside Boutique,Bob,05,10/07/2026,12/07/2026,1300
+9101,Riverside Boutique,Carol,08,14/07/2026,16/07/2026,1100
