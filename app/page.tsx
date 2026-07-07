@@ -20,7 +20,7 @@ const FLOW = [
     icon: Webhook,
     tag: "TRIGGER",
     title: "Chat · Cron · API",
-    desc: "ข้อความลูกค้า, cron รายวัน, ไฟล์จาก OTA",
+    desc: "คำถามจากทีม, cron รายวัน, ไฟล์จาก OTA",
   },
   {
     icon: Database,
@@ -31,14 +31,14 @@ const FLOW = [
   {
     icon: Bot,
     tag: "AI AGENT",
-    title: "LLM 12 จุดทั่วระบบ",
+    title: "LLM 11 จุดทั่วระบบ",
     desc: "classify · วิเคราะห์ · ประเมินสุขภาพ · ร่างข้อความ",
   },
   {
     icon: LayoutDashboard,
     tag: "OUTPUT",
-    title: "จอง · Dashboard · Alerts",
-    desc: "ตอบแชท+จองจริง, KPI, แจ้งเตือน, รายงานเช้า",
+    title: "คำตอบ · Dashboard · Alerts",
+    desc: "ผู้ช่วย AI ตอบจากข้อมูลจริง, KPI, แจ้งเตือน, รายงานเช้า",
   },
 ];
 
@@ -89,7 +89,7 @@ const STACK = [
 
 const STATS = [
   { value: "6", label: "โรงแรมลูกค้าในระบบ" },
-  { value: "12", label: "จุดที่ AI ทำงานแทนคน" },
+  { value: "11", label: "จุดที่ AI ทำงานแทนคน" },
   { value: "20+", label: "REST API + CRUD ครบ" },
   { value: "1 คลิก", label: "รายงานรายเดือนทั้งฉบับ" },
 ];
@@ -154,12 +154,12 @@ function MockConsole() {
 
         <div className="mt-2 grid grid-cols-5 gap-2">
           <div className="col-span-3 space-y-1.5 rounded-lg bg-white/5 p-2.5">
-            <div className="text-[9px] text-white/40">แชทจองอัตโนมัติ</div>
+            <div className="text-[9px] text-white/40">ผู้ช่วย AI ของทีม</div>
             <div className="w-fit max-w-full rounded-lg rounded-bl-sm bg-white/10 px-2 py-1 text-[10px] text-white/80">
-              มีห้องว่างเสาร์นี้ไหม
+              โรงแรมไหนต่ำกว่าเป้าบ้าง?
             </div>
             <div className="ml-auto w-fit max-w-full rounded-lg rounded-br-sm bg-brand px-2 py-1 text-[10px] font-medium text-brand-ink">
-              จองสำเร็จ ✅ Deluxe คืนละ 1,800.-
+              City Central 58% (เป้า 75) — เร่งกระตุ้น
             </div>
           </div>
           <div className="col-span-2 flex flex-col items-center justify-center rounded-lg bg-white/5 p-2">
@@ -253,8 +253,9 @@ export default function Home() {
                   className={`${rise(200).className} mt-4 max-w-xl leading-relaxed text-white/70`}
                 >
                   ดูแลลูกค้าหลายโรงแรมพร้อมกันโดยไม่ต้องไล่เปิดดูทีละแห่ง —
-                  ระบบชี้เป้าว่าเช้านี้ต้องโฟกัสที่ไหน, แชทตอบและจองให้จริง,
-                  จับจองซ้อนก่อนเกิดเรื่อง, รายงานเจ้าของเสร็จในคลิกเดียว
+                  ระบบชี้เป้าว่าเช้านี้ต้องโฟกัสที่ไหน, มีผู้ช่วย AI
+                  ให้ทีมถามข้อมูลทุกโรงแรมได้จากทุกหน้า, จับจองซ้อนก่อนเกิดเรื่อง,
+                  รายงานเจ้าของเสร็จในคลิกเดียว
                 </p>
                 <div {...rise(300)} className={`${rise(300).className} mt-7 flex flex-wrap gap-3`}>
                   <Link
@@ -264,10 +265,10 @@ export default function Home() {
                     เปิดภาพรวมทุกโรงแรม <ArrowRight size={16} aria-hidden />
                   </Link>
                   <Link
-                    href="/chat"
+                    href="/portfolio"
                     className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10"
                   >
-                    <MessageCircle size={15} aria-hidden /> ลองแชทจองห้อง
+                    <MessageCircle size={15} aria-hidden /> ลองถามผู้ช่วย AI
                   </Link>
                 </div>
 

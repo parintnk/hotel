@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Hotel Ops Console — Hotel Automation Platform",
   description:
-    "แพลตฟอร์มอัตโนมัติสำหรับโรงแรม: แชทจองด้วย AI, ETL หลายช่องทาง + จับ overbooking, review intelligence และรายงานรายวัน",
+    "แพลตฟอร์มอัตโนมัติสำหรับทีมบริหารโรงแรม: ผู้ช่วย AI ถามได้ทุกเรื่องจากข้อมูลจริง, ETL หลายช่องทาง + จับ overbooking, review intelligence และรายงานรายวัน",
 };
 
 export default function RootLayout({

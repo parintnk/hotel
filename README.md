@@ -4,7 +4,7 @@
 สร้างเพื่อโชว์งาน **AI workflow / data pipeline / internal tool** แบบครบวงจรในโปรเจคเดียว
 
 > โจทย์: เอเจนซี่บริหารโรงแรมจมงาน manual — ไล่เช็คราคาใน extranet ทีละ OTA, เปิดดูผลงานทีละโรงแรมทุกเช้า, ทำรายงานรายเดือนใน PPT หลายชั่วโมงต่อลูกค้าหนึ่งราย, งานหลุดในแชท
-> คำตอบ: workspace เดียวที่ระบบชี้เป้าให้ว่าวันนี้ต้องโฟกัสที่ไหน และ AI ทำงานซ้ำๆ แทนใน 10 จุด
+> คำตอบ: workspace เดียวที่ระบบชี้เป้าให้ว่าวันนี้ต้องโฟกัสที่ไหน และ AI ทำงานซ้ำๆ แทนใน 11 จุด
 
 ## ระดับเอเจนซี่ (portfolio ลูกค้า 6 โรงแรม)
 
@@ -17,13 +17,14 @@
 | 📅 `/marketing` | ปฏิทินคอนเทนต์/แคมเปญทุกลูกค้า + งบ + ผล + **AI คิดไอเดียคอนเทนต์** grounded ด้วยข้อมูลโรงแรม | รวมปฏิทินที่เคยแยกไฟล์กันมาไว้ที่เดียว |
 | 🤝 `/crm` | Sales pipeline (เอเย่นต์/corporate/OTA deal) + เตือน follow-up | แทน Excel ที่ไม่มีใครเตือนให้ตามลูกค้า |
 | 📄 `/reports` | **AI เขียนรายงานรายเดือนส่งลูกค้าทั้งฉบับ** จากตัวเลข+แคมเปญ+รีวิว+parity ของโรงแรมนั้น | งานหลายชั่วโมงต่อโรงแรม เหลือกดปุ่มเดียว |
+| 💬 ผู้ช่วย AI (ปุ่มลอยทุกหน้า) | พนักงานถามอะไรก็ได้ — occupancy, parity, งานค้าง, ดีลที่ต้องตาม, รีวิวลบ — ตอบจาก **snapshot ข้อมูลจริงทั้งระบบ** | ไม่ต้องไล่เปิดทีละหน้า ถามประโยคเดียวได้คำตอบพร้อมตัวเลข + คุยต่อเนื่องได้ (ส่ง history) |
 
 ## Architecture
 
 ```mermaid
 flowchart LR
     subgraph TRIGGER
-        A1[Chat message]
+        A1[คำถามจากทีมผ่านผู้ช่วย AI]
         A2[Cron รายวัน]
         A3[CSV จาก OTA]
     end
@@ -31,12 +32,12 @@ flowchart LR
         B1[Extract 3 formats] --> B2[Normalize] --> B3[Dedupe source_ref] --> B4[Detect overbooking]
     end
     subgraph AI["AI AGENT (lib/ai.ts — Gemini, สลับ provider ได้)"]
-        C1[Intent classify จากบริบทแชท]
+        C1[Assistant ตอบจาก snapshot ทั้งระบบ]
         C2[Review sentiment + topics]
         C3[สรุปรายงานภาษาคน]
     end
     subgraph OUTPUT
-        D1[จองจริง + ตัดห้อง]
+        D1[คำตอบพร้อมตัวเลขจริง]
         D2[Dashboard KPI]
         D3[Alert รีวิวลบ / จองซ้อน]
         D4[Daily report]
@@ -54,7 +55,7 @@ flowchart LR
 |---|---|---|
 | Data | `lib/db.ts` → `lib/store.ts` | **local JSON store** (`data/local-db.json`) — seed อัตโนมัติครั้งแรก, ทุก CRUD persist ข้าม restart, รีเซ็ตได้จาก sidebar · อยากย้ายไป DB จริงแก้ที่ `lib/db.ts` ไฟล์เดียว |
 | AI | `lib/ai.ts` | เปลี่ยน LLM provider/model ที่จุดเดียว (ตอนนี้ Gemini 3.x) + auto-retry ตอน 429/503 |
-| Transport | `app/api/chat` | conversation engine ไม่รู้จักช่องทาง — ย้ายไป LINE OA / n8n webhook ได้โดยไม่แตะ engine |
+| Transport | `app/api/assistant` | assistant engine ไม่รู้จักช่องทาง — ย้ายไป LINE OA / Slack / n8n webhook ได้โดยไม่แตะ engine |
 
 **REST API** (validate ครบ ตอบ 400/404 พร้อมเหตุผล): `GET|POST /api/tasks` · `PATCH|DELETE /api/tasks/:id` · เช่นเดียวกับ `/api/leads` `/api/campaigns` · `PATCH /api/rates` (แก้ราคา OTA → ตรวจ parity ใหม่) · `PATCH /api/bookings/:id` (ยกเลิกการจอง) · `POST /api/admin/reset` — ทุกจุดลบ/ยกเลิกใน UI มี **confirmation modal**
 
@@ -62,12 +63,11 @@ flowchart LR
 
 | โมดูล | ทำอะไร | จุดที่ยาก |
 |---|---|---|
-| 💬 Chat booking (`/chat`) | เข้าใจภาษาคน เช็คห้องว่าง จองจริง ตัดห้องจริง | ส่งบริบทแชทให้ classifier — "สนใจจองเลย" หลังคุยวันที่ไว้ = จองด้วยวันที่นั้น, เคส confidence ต่ำ/complaint ส่งต่อคน |
 | 🔀 ETL pipeline (`/ops`) | รวมไฟล์จอง 3 ช่องทางคนละฟอร์แมต + **AI แนะนำวิธีแก้จองซ้อน** | วันที่ ISO vs DD/MM/YYYY, คอลัมน์คนละชื่อ, แถวข้อมูลขาด → normalize + dedupe + จับ overbooking ด้วย interval overlap — ตอนแนะนำวิธีแก้ ระบบหาห้องว่างจริงช่วงนั้นป้อนให้ AI ไม่ให้เดา |
 | ⭐ Review intelligence (`/reviews`) | AI แยก sentiment + หัวข้อปัญหา + **ร่างคำตอบรีวิวลบ** ในโทนแบรนด์ | รีวิวลบเด้งเป็น alert พร้อม topics + คำตอบพร้อมคัดลอกไปโพสต์ |
 | 📊 Dashboard (`/dashboard`) | KPI bento + AI briefing + **AI Hotel Health Check** | Health Check อ่าน metrics 14 วัน + ช่องทางจอง + รีวิว แล้วให้คะแนน/เกรด พร้อมจุดแข็ง-ความเสี่ยง-สิ่งที่ควรทำทันที (สไตล์บริการตรวจสุขภาพโรงแรมของบริษัทที่ปรึกษา) |
 
-**AI ทั้งหมด 12 จุด:** intent classification (บริบทหลายเทิร์น) · ตอบคำถามทั่วไป · วิเคราะห์รีวิว · ร่างตอบรีวิว · AI briefing รายโรงแรม · daily report (cron) · health check · แนะนำแก้จองซ้อน · **briefing เช้าทั้ง portfolio** · **รายงานรายเดือนทั้งฉบับ** · **ไอเดียคอนเทนต์การตลาด** · **ร่างข้อความ follow-up ลูกค้าใน CRM** — ทุกจุด grounded ด้วยข้อมูลจริงจากระบบและบังคับ JSON schema ไม่ปล่อยให้โมเดลเดา
+**AI ทั้งหมด 11 จุด:** **ผู้ช่วย AI ประจำทีม (ถามได้ทุกเรื่อง คุยต่อเนื่องได้ — ปุ่มลอยทุกหน้า)** · วิเคราะห์รีวิว · ร่างตอบรีวิว · AI briefing รายโรงแรม · daily report (cron) · health check · แนะนำแก้จองซ้อน · **briefing เช้าทั้ง portfolio** · **รายงานรายเดือนทั้งฉบับ** · **ไอเดียคอนเทนต์การตลาด** · **ร่างข้อความ follow-up ลูกค้าใน CRM** — ทุกจุด grounded ด้วยข้อมูลจริงจากระบบ ไม่ปล่อยให้โมเดลเดาตัวเลข
 
 ## Quick start
 
@@ -82,13 +82,15 @@ EOF
 npm run dev
 ```
 
-เปิด http://localhost:3000 → กดรัน pipeline ที่ `/ops` → ลองจองที่ `/chat` → ดูตัวเลขขยับที่ `/dashboard`
+เปิด http://localhost:3000 → กดรัน pipeline ที่ `/ops` → ดูตัวเลขที่ `/dashboard` → ถามผู้ช่วย AI จากปุ่มมุมขวาล่างได้ทุกหน้า
 
 ทดสอบผ่าน API ตรงๆ:
 
 ```bash
 curl -X POST localhost:3000/api/etl                    # → stats + overbooking conflicts
 curl -X POST localhost:3000/api/reviews/analyze        # → sentiment + alerts
+curl -X POST localhost:3000/api/assistant -H 'Content-Type: application/json' \
+  -d '{"question":"โรงแรมไหน occupancy ต่ำกว่าเป้าบ้าง?"}'   # → ผู้ช่วย AI ตอบจากข้อมูลทั้งระบบ
 curl -H "Authorization: Bearer dev-secret" localhost:3000/api/cron/daily-report
 ```
 

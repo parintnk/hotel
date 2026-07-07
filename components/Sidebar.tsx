@@ -10,7 +10,6 @@ import {
   LayoutDashboard,
   ListChecks,
   Megaphone,
-  MessageCircle,
   Scale,
   Star,
   Workflow,
@@ -33,7 +32,6 @@ const SECTIONS = [
     title: "รายโรงแรม (สลับได้ทุกลูกค้า)",
     links: [
       { href: "/dashboard", label: "Dashboard + Health Check", icon: HeartPulse },
-      { href: "/chat", label: "แชทจองอัตโนมัติ", icon: MessageCircle },
       { href: "/reviews", label: "Review Intelligence", icon: Star },
       { href: "/ops", label: "Data Pipeline (ETL)", icon: Workflow },
     ],
@@ -99,7 +97,7 @@ export default function Sidebar() {
         <div className="border-t border-white/10 p-4">
           <div className="flex items-center gap-2 text-xs text-white/60">
             <span className="h-1.5 w-1.5 rounded-full bg-up" aria-hidden />
-            ระบบทำงานปกติ · AI 12 จุด
+            ระบบทำงานปกติ · AI 11 จุด
           </div>
           <Link
             href="/"
